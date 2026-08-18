@@ -1,0 +1,38 @@
+today onwareds we start using claude code for implementation.
+our goal is to improve the landing page of our project.
+
+1) today we will cover: how to make changes in existing code.
+2) how to create a new files/pages
+3) how to use use claude code's multimodal capabalities.
+
+we will make some changes to your project changes in hero section then footer section adding terms and conditions,and a route where we can see the video.
+
+starting with that we created a new claude code session here then we renamed it to landing page improments.
+
+general tip: always dont put or type the prompt to claude, better way i do is when i am working on a code base like this i put a own wirtten prompt either thats gonna be typed or voice to speach in a text file.
+once thats done, i make sure all the work i want to be done is explained properly and all details are there already.
+then i give that text file to claude.ai not code, and i tell him to polish and fix the structure
+
+while telling claude code about a file to go in that file and make changes then always use @File_name see below in prompt1.
+its called mentioning which file we want to work with.
+
+prompt 1:
+
+Add two Links to the footer in @templates/base.html:
+- "Terms and Conditions"
+- "Privacy Policy"
+Both should be plain text links, no special styling needed for now.
+exist yet.
+Point both to "#" as placeholder hrefs since the pages don't
+Do not modify anything else on the page.
+
+prompt 2:
+
+Create a "Terms and Conditions" page for Spendly.
+
+1. Add a new route in [@app-py](http://app-py/):
+GET /terms → renders templates/terms.html
+2. Create templates/terms.html with generic terms and conditions content appropriate for a personal expense tracking app.
+Include sections like: Acceptance of Terms, Use of Service, User Data, Limitations of Liability, and Changes to Terms.
+Extend base. html if it exists, otherwise match the style of landing. html.
+3. In @templates/landing. html, update the "Terms and Conditions" footer link href from "#" to "/terms".
