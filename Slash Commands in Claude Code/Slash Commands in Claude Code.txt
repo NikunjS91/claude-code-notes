@@ -1,0 +1,65 @@
+today we will learn about the slash command.
+to define the slash commands: slash commands are shortcuts you type inside a claude code session, starting with /,that trigger a specific predefined action or workflow instantly- without writing out a full prompt.
+
+this was developed watchin that all the users were using the same prompt repetadely so they dicided to make those prompt as a predefined commands.
+before starting i want to tell you that there are two types of slash commands.
+1) build-in commands
+2) custom slash commands
+
+what are sessions?
+sessions is the one conversation with claude code.
+everything from when we run claude to when we type /exit is a session.
+
+each session has unique session id and the capture the full message history , all file reads, all tool results, and the current working directory.
+
+session are saved actomatically to ~/claude/project/ and can be resumed at any time, even after closing the terminal.
+
+Using "claude -r" we can launch claude code which showes you all previour session from you can continue the chat by selecting a session of choice.
+while working on one session we can jump to another session with /resume (slash command) this gives you choice of session just select it and continue.
+
+some best practices a developer must follow,
+    for example you are developing a websight then for each feature we should use each session.
+    one the feature is developed we should stop the session and start new for new feature. this help is seperation of task and our context window is never mixed with two different context.
+when creating a new session rename it rightaway else the ai will name it based on the first prompt question we ask which is not good( rather use the feature name)
+    /rename [Name] this used to rename the session.
+always create commits at different feature complesion, and keep a habit of commits.
+/btw is a command which stand for by the way, the question asked with the help of /btw are not the part of session.
+    this runs paralel with the main prompt claude work in that by its own with btw we can quickly ask a question and then once you got the answer press space and you are back to your session.
+export a session before a big refactor.
+    all the session are stored in claude somewhere,to keep them formally in our project directory then use /export command with file name and its extention eg, /export file.md 
+    the main advantage of this is that while refectoring i can give this file as a context based on this i can make changes in code.
+
+/logout - logout from claude account
+    use this to switch between accouts basically people use both personal and company claude code account so with this it gets easy to switch between.
+/login - login with options if needed.
+
+what are models in claude code?
+we have three and more different models based on the use cases.
+1) opus: this is only used when we need to write complex code and this really exhaust token quickly.
+2) sonnet: this model is dafault model also this is the perfect balance with speed, quality and token code. good for everyday coding tasks.
+3) haiku : this is the fastest and cheapest this is used for simple, repetative progarmming tasks. where we dont need deep resoning.
+
+a suggestion i would give you, use opus for the planning phase (where we think about the achitecture, wirting specs, making decisions) then switch to sonnet for the implementation phase where the thinking is done and you just need reliable code generation.
+
+to switch between models we can use /model to switch between models.
+
+/usage tell you how much have we used the claude code as daily limit and weekly limit.
+
+/extra-usage is used to add credit so incase we hit limit it will help to contunue session with funds recharge.
+
+/stats based on the usage it provied statasics.
+
+/insight this gives use the detail report based on out usage which tells you how we are using the claude code and how we can improve the usage.
+    this return an html file, very usefull must do it after 10-15 session to find out how to impove the calude code usage skill.
+
+/config with this command we can change the configuration of claude code.
+
+/permissions help you to allow or deny tools.
+    basically we can understand claude code as a agent build on top of LLM, tools can be read tool which read docs file , write tool to write inside docs files likewise we can have web search tools which help llm to search from internet.
+    we can also add our own tools with the help of mcp.
+    we can allow permission or deny to tools, we can also set permission as yes to use tools when it keep on asking you on repetadely. so it can use it without any permission.
+    then it comes with 3 choice weather this permission should apply to your local code base , then second to all who is using this repo or codebase and third is user settings with this laptop means for all projects in this laptop only.
+
+/theme change theme of claude code
+
+/voice turn on voice mode. speak to prompt

@@ -1,0 +1,38 @@
+firstly we need to install the claude code in our system, on google search claude 
+go into first link and there you will see the curl command copy the command and paste in out terminal.
+and hit enter
+
+after this the claude will be installed in system. and to get it started just type claude in terminal and you are good to go.
+
+but like this it will you claude from system related or user realted directory but we need to work in a specific folder so we need to do ctrl + c (twice)
+then cd to our required location and then do claude again may ask for trust permissions, continue with yes.
+
+basically we have a ready project i want you to download the project from google drive and extrat the zip and cd into that folder and open it with code . into visual studio code.
+
+now the claude it on, now lets see what project it is, 
+but before that we need to setup the virtual environment so for that there is one more short cut to use shell command in claude
+simple press shift + 1( 1 key which contain ! mark)
+this is turn claude code into shell mode.
+python3 -m venv venv 
+source venv/bin/activate
+run this command then install requirements.txt
+then run the code with pyhton3 app.py
+
+this will run the app in terminal you will see the port where it is working.
+
+the advantage of running command in the bashmode is the claude remember the command we ran in his history.
+futher we can prompt to get more details.
+
+
+not we will also make a github repo so if we add any new feature can will push to github.
+
+you will see the git command over github just execute that and we are good , the code must be pushed to master
+
+
+you can ask the claude as a new joiner what this project does?
+then what tech stack does this project use.
+
+also explain the project structure to me.
+
+
+ollama launch claude

@@ -1,0 +1,6 @@
+.DS_Store
+.claude/
+.vscode/
+Project/expense-tracker/venv/
+venv/
+Project/expense-tracker/
