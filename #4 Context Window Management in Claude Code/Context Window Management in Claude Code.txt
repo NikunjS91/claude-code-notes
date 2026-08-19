@@ -1,0 +1,49 @@
+till now we have setuped the cladue code then we have learned the slash Coammands
+with this we tried some changes in out existing code base.
+
+today we will learn about the context window.
+
+
+A context window is the amount of information (in tokens) that a model like Claude Code can see and remember at one time while generating a response.
+Think of it as the model's working memory.\
+
+Context is all the information available to understand something correctly
+context window is the maximum amount of context the model can hold at once.
+claude code has a context window of 200k tokens,
+each session get new fresh context window.
+token are consumed as both input as well as output. it contains all things tools,images and all.
+output messsage are 6x more then your input token.
+
+we send all previour chat conversation to claude as next input so long the chat continues it multiplies the usage of it.
+
+there is a concept of subagent, dividing the multiple task to different sub-agents.
+
+once the subagent finishes its task it returns a summnary to main agent.
+generally 200k tokens what we get, but we actually get 150k token to use.
+    so that 50k must be defined as the system usage
+    i conatins the system prompt 6k then tools schemas 8k, claude.md , then conversation history, then tool results, skills and mcp and autocompact.
+
+/context is a commnd to see the usage and stats.
+
+token is related to cost.
+    per token is linked to context so somehow if we can manage the context then we can optimize the usega and cost.
+    it shapes how we structure your workflow (1 feature 1 session, 10 features 1 session = 10x cost)
+    response quality gets poluted for longer sessions.(context window)
+
+how to handle if we faced the context window issue.
+stage 1:  150k tokens are used so quality is degraded.
+stage 2: autocompact trigger around 75-92% (generates the summary of the whole conversation and save in the same 200k autocompact 33k section. and convo history is free)
+stage 3: again autocompaction 
+stage 4: Hard Stop (no space to keep the summary as well.)
+
+/compact does the compaction maunally.
+start a sub-agent for the next task as the sub-agent will have its own 200k context window freshly available
+or we can use /clear which clear the whole conversation bring you to start.
+
+good practices:
+
+1 feature 1 session.
+use /compace proactively not reactively.
+write Foused and specific prompts 
+use subagent for isolated  and exploratory work.
+use .claudeignore to keep irrelevant files out. (.env, build files)
