@@ -1,0 +1,150 @@
+today we will talk about the claude.md this is a theory where we going to .claude and automemory feature.
+
+why claude.md file?
+
+1) as we all know the llm dont have memeory
+2) the claude code cant remember things from prev session as it is based on the llm
+3) we need to tell claude everything from scratch which libraries are we using.
+4) repeting instruction is cumbersome & error prone
+5) lead to inconsistant code generation.
+
+lets talk about the solution: a file with all details.
+
+The claude.md file is a special project-level instruction file used by Claude Code to guide how it behaves while working on your codebase.
+Think of it as a persistent system prompt for your project.
+
+for each new session claude code pulls the info from that file this is claude.md file.
+
+Instead of repeatedly telling Claude: how your project is structured coding conventions how to run/build/test what tools to use
+we put all of that into claude.md, and Claude automatically uses it as context every time.
+
+there are two ways of creating this file.
+1) manually create this file in your project directory.
+    name it in all caps CLAUDE.md
+    save full details of your project in that file.
+
+2) /init command automatically create claude.md 
+    this help faster to read when working with pre-developed code base.
+    help us with large repo with many files claude can spot patterns which we might forget to document
+    someone new to CLAUDE.md as file format is unknown.
+    quick prototypes , it does the task dont need to do it manually.
+
+/init  
+behind the scene how it works:
+    Triggers an internal agent that takes over the scanning and writing task
+    Agent scans high-signal config files first - package.json, requirements.txt, Makefile, README.md
+    Reads directory tree structure
+    Infers tech stack, folder layout, and naming conventions
+
+Writes a CLAUDE.md to the project root with the inferred context
+
+The generated CLAUDE.md is roughly 30% useful.
+
+The remaining 70% - workflows, constraints, what to avoid, deployment targets, naming conventions - we have to write.
+
+/init is good starting point but not fully reliable once done,we have to define rule like wise.
+
+
+Content of CLAUDE.md.
+    Project Context
+    A short description of the project so Claude immediately understands what it is building or modifying.
+    Example:
+    This is a FastAPI backend for a health-tracking application that stores patient BMI records and exposes
+    CRUD APIS.
+
+Architecture
+    Explains how the codebase is structured and where things belong
+    Example:
+    - Routes live in 'routers/*
+    - Business logic lives in "services/*
+    - Schemas live in 'schemas/*
+    - Persistence logic lives in 'repository/
+
+Code style
+    This section tells Claude how code should look and what conventions to follow.
+    Example:
+    - Use Python type hints everywhere.
+    - Prefer Pydantic models for request and response schemas.
+    - Keep functions small and focused.
+
+Preferred libraries
+    Constrains what tools/frameworks should be used
+    Example:
+    - Use FastAPI for APIs
+    - Use Pydantic for validation
+    - Use SQLAlchemy for ORM
+    - Do not introduce new dependencies unless necessary
+
+Commands
+    Lists exact commands for running, testing, and maintaining the project
+    Example:
+    - Install dependencies: pip install -r requirements.txt
+    - Run dev server: uvicorn main:app --reload
+    - Run tests: pytest
+
+Critical rules
+    Highlights critical warnings, edge cases, and things to avoid
+    Example:
+    - Do not modify "database.py" unless absolutely necessary.
+    - Patient IDs are provided by the client; do not auto-generate UUIDs.
+
+
+.claude Folder
+    The claude folder is Claude Code's local configuration directory that controls how Claude behaves - either for a specific project or across all projects on your machine.
+    It stores all config related info about skills, custom slash commands, sub-agents etc.
+
+    Project-level:  claude/ - scoped to one project, committed to the repo, shared with the team.
+    Global/User-level:  ~/claude/ - scoped to your machine, applies to every project, personal to you.
+
+                            Project-level                                   Global
+Location                project-root>/. claude/                         ~/. claude/
+Scope                       This project only                           Every project on your machine
+Shared with team        Yes - lives in the repo                         No - only on your machine
+Use for     Project-specific commands, workflows, settings          Personal commands you want everywhere
+
+what are the different types of claude.md files
+    1) project root ./CLAUDE.md
+    2) Inside .claude folder : ./.claude/CLAUDE.md (somethimes people prefer putting all claude related files inside the .claude folder) but dont make any difference with above listed
+    3) Local (Personal, Gitignored) - ./CLAUDE.local.md
+        Create CLAUDE.local.md in your project root. Claude reads it alongside the main CLAUDE.md, and it's automatically gitignored so your personal tweaks never land in the repo.
+    4) Global - ~/.claude/CLAUDE.md
+        Your personal preferences that apply across all projects.
+        Things like your coding style defaults, preferred tools, or general working style go here. This user-level file is available across all your projects.
+    5) Subdirectory - ./some/folder/CLAUDE.md
+        Starting in the current working directory, Claude Code recurses up to / and reads any CLAUDE.md or CLAUDE.local.md files it finds.
+        This is especially convenient in large repositories.
+
+Good Practices:
+    start with /init , the prune aggressively(alter yourself)
+    commit it to git
+    put universally applicable things in it
+    Use emphassis sparingly for critical rules
+        if everything is IMPORTANT, nothing is.
+    CLAUDE.md file should not cross 200 Lines.(quality degrade)
+        rule:  would removing this cause claude to make mistakes? IF not then remove the line.
+    
+    in case of working in a large project will it be possible to restrict claude.md to 200 line?
+    answer: for such scenerios: there are three solutions:
+        1) splid into .claude/rules/files  (make topic specific files inside the rules folder eg.[code style.md,testing.md,security.md,api-conversation.md])
+        2) claude.md file we can use @import to refeance external docs. (like importing packages)
+        3) use Subdirectory CLAUDE.md files for each folder when worked on that folder it follow then.
+    
+    Treat it like a living document. Build it organically, not upfront.
+    correct once, the codify.(repedely mistakes explain it and add it as instruction in CLAUDE.md file)
+    audit prediocally - instructions drift(instructions changes for keep reviewing and changing the claude.md)
+
+
+AUTO Memory:
+Auto memory is a persistent directory where Claude records learnings, patterns, and insights as it works.
+When Claude discovers something about your project ("oh, this application uses INR instead of USD), it saves that to auto-memory. Next session, it already knows. No more repeating yourself.
+It lives in ~/.claude/projects/<project>/memory/:
+
+Only the first 200 lines of MEMORY.md load automatically.
+To review or edit what Claude has saved, run /memory during any session.
+
+/memory command: 1)project memeory 2) user Memory 3) open auto memory folder
+
+claude.md and memory.md file ar same persistent but the only difference it claude.md file can be written my user and memory.md file can only be written my the claude.
+
+we can also create a memory manually.
+we can simple prompt that based on what we discussed and developed in this session update memory.md file
