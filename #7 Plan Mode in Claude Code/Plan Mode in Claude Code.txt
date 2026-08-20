@@ -1,0 +1,55 @@
+today we will learn about plan mode in claude code and build our project.
+
+1) setup database
+
+setup tables,fill dummy data, setup database files.
+
+this all will be done with spec driven
+
+
+
+Instructions
+1. start a new claude session
+2. rename the session to ' database setup '
+3. Pull the most recent code - git pull origin main
++ * 4. Create and switch to a new branch - git checkout -b feature/database-setup
+5. Create Spec document manually
+6. Review the spec document
+7. Save the spec document in •claude/specs folder by the name of 01-database-setup.md
+Enter Plan mode and create a plan based on the spec document
+Read claude/specs/01-database-setup.md and the existing database/db.py and app.py, then generate an implementation implementation this plan to  .claude/plans/01-database-setup.md
+9. Implement the plan - review edits manually
+10. Validate the implementation against the spec document
+11. Iterate if required
+12. commit the changes
+git add .
+git commit -m 'database setup'
+13. Push the code to Github - git push origin feature/database-setup
+14. Create and merge the PR
+15. Checkout to the main branch - git checkout main
+16. Delete the feature branch - git branch -D feature/database-setup
+
+
+
+
+spec Docuemnt:
+
+Spec Document
+1. Overview
+Replace the stub in database/db.py with a working SQLite implementation.
+This step establishes the data layer foundation for the Spendly application.
+All future features (authentication, profile, expense tracking) depend on this being correctly implemented.
+
+
+2. Depends on
+Nothing - this is the first step.
+
+
+
+some good practices:
+
+1) model selection. (switch to opus when working with bigger code bases)
+2) extended thinking (it thinks and research before responding to question using scratchpad) plan mode + extended when designing spec files
+3) effort level (thinking time is actually related to token usage , to put limit there is effort given the model spefic budget of tokens.)
+    low, medium, high, max(unlimited comes with opus)
+4) Ultraplan (when working with complex feature and plan mode is not satisfying then switch to Ultraplan)
