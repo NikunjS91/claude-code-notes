@@ -1,0 +1,132 @@
+spec driven development is important aspects of agentic coding or we can say it is core piller of agentic coding.
+
+before we dive into the main explanation lets discuss the problem,
+the problem here i believe is the vibe coding.
+
+Vibe Coding!
+It is a modern style of programming where instead of carefully planning everything upfront, you build software by interacting with an AI assistant in a fast, conversational, and experimental way.
+
+when we use vibe coding in general we give full control to ai. because of which ai takes all the crutial decisions and we end up developing something unintended.
+
+the problem: Prompt - build me a user auth system
+• Which framework?
+• JWT or sessions?
+• What are the password rules?
+• What happens on 3 failed attempts?
+
+You get code fast, but it may not be the right code. You end up in a loop of corrections and patches.
+
+here comes the spec driven development, to all the question we provide the answers  how?
+by provinding the spec document.
+
+Spec-Driven Development (this question what and why?)
+Spec driven development (SDD) is a software development approach where a detailed specification document is written before any code is written.
+The spec acts as the single source of truth for what the system should do, and all development flows from it.
+
+how does a sepc document look like :
+
+problem statement.
+functional requirement
+API contracts (inputs, outputs, data shapes)
+Constraints
+Edge cases and error handling
+Acceptance criteria
+
+example of spec docuemnt:
+
+1. Problem Statement
+As users interact with the application, they create multiple conversations over time. However, there is currently no easy way to revisit or continue past chats.
+This makes it difficult for users to:
+• Find previous discussions
+• Resume earlier conversations
+• Manage multiple chat threads
+Solution: This feature introduces a chat history sidebar to solve this problem.
+
+2. Functional Requirements
+The system should:
+ Display a sidebar showing a list of past chats
+ Show a short, readable title for each chat v Automatically generate the title from the user's first message
+ Automatically generate the title from the user's first message
+ Allow users to click on any chat to open it
+ Highlight the currently active chat
+ Add a new chat to the list after the first message is sent
+ Display chats in order from most recent to oldest
+
+
+3. Chat Opening Behavior
+USER ACTION (INPUT)
+When a user clicks on a chat from the sidebar
+EXPECTED SYSTEM BEHAVIOR
+• Open the selected chat in the main chat area
+• Display the full conversation
+• Show messages in the order they were originally sent
+• Highlight the selected chat in the sidebar
+
+
+4. Constraints
+The sidebar should load quickly (within 1 second for typical usage)
+The sidebar should work properly on standard laptop screens
+Titles should be short and readable (shortened with".." if too long)
+The system should handle a reasonable number of chats smoothly
+
+
+5. Edge Cases and Error Handling
+No previous chats exist
+→ Show message: "No chat history yet"
+User clicks a chat that cannot be loaded
+→ Show message: "This chat could not be opened"
+Very long first message
+→ Use only the first part as the title
+Multiple chats with similar titles
+→ Allowed (each chat is still unique)
+System fails to load chats
+→ Show message: "Unable to load chat history. Please try again."
+Large number of chats
+→ Sidebar should remain scrollable
+
+6. Acceptance Criteria
+This feature is considered complete if:
+
+Users can see a list of their past chats
+The correct conversation is displayed every time
+New chats appear automatically after first use
+Empty and error states are handled properly
+Users can click and reopen any chat
+The active chat is clearly highlighted
+Chats are ordered from most recent to oldest
+Long titles are displayed neatly without breaking the layout
+
+spec-Driven Development workflow:
+Spec->Review->Design->Review->Tasks->Build->Validate
+
+technical design plan is another plan,(this question How?)
+
+
+
+                                                            Vibe Coding                     Spec Driven Development
+Starting point                                      A feeling / rough idea                  A written specification
+Who decides                                         requirementsAl infers them              You define them upfront
+Control                                                     Low - Alleads                   High - you lead
+Speed to first result                                   Very fast                          Slower upfront, faster overall
+Code quality                                            Unpredictable                       Consistent and traceable
+Works well for                              Prototypes, exploration, side projects         Production systems, teams, complex apps
+Failure mode                                Spaghetti code you don't fully understand       Over-specified, rigid if requirements change
+Debugging approach                                         Ask Al to fix it                 Check against spec to find driven
+You need to understand the code?                            Not really                     Yes - you own the spec
+
+
+this is the flow we are going to follow for developing any application:
+
+
+Pull latest code from main branch                       Create new branch git checkout -b                       Switch to branch git switch
+git pull origin main                                           git checkout -b feature/x                           git switch feature/x
+
+Commit changes                   Push to GitHub             Create and merge PR     Delete branch           Switch brank to main
+git commit -m                    git push origin                                    git branch -d              git switch main
+
+
+
+
+
+
+
