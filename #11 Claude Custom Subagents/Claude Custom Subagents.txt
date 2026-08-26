@@ -1,0 +1,96 @@
+today we will learn about the custom sub agents.
+so while working on a prject code base we have seen always we need to check the code base for the security meaning  
+    can anyone hack our system?
+    checking for sql injections , watching that our api is not exposed
+
+for all this we need to load our codebase into context window.
+so that loading codebase into context can be done my any subagent meaning the buildin subagents.
+
+but lets suppose we are working in a company and they have strict guidelines or a checklist for doing so.
+now our buildin agent cant do a specialised condition based security audit.
+
+this is where the custom sub-agent is required.
+with this agent we can profile tools system prompt and skills and make him work how we want him to do so.
+
+when ever we need specialization then we have to work with sub-agents.
+
+
+how to make one?
+
+same markdown files.
+---
+name: code-reviewer
+description: Reviews code for quality and best practices tools: Read, Glob, Grep 
+model: sonnet
+---
+You are a code reviewer. When invoked, analyze the code and provide specific, actionable feedback on quality, security, and best practices.
+
+these below can be set as well.
+name
+Unique ID, lowercase with hyphens
+description
+Tells Claude when to delegate to this agent
+tools
+Allowlist of tools (eg. Read, Grep, Glob, Bash). Inherits all if omitted
+disallowedTools
+Denylist - removes specific tools from the inherited set
+model
+sonnet, opus, haiku, a full model ID, or inherit (default)
+permissionMode
+default, acceptEdits, auto, dontAsk, bypassPermissions, or plan
+
+maxTurns
+Max agentic turns before it stops
+skills
+Skills to preload into the subagent's context
+mcpServers
+MCP servers scoped to this subagent
+hooks
+Lifecycle hooks (eg. PreToolUse, PostToolUse)
+memory
+Persistent memory scope: user , project,or local
+background
+true to always run in background
+effortt
+low, medium, high, xhigh, or max
+isolation
+Set to worktree for an isolated git worktree copy
+color
+Ul color: red, blue, green, yellow, purple, orange, pink, cyan
+initialPrompt
+Auto-submitted first user turn when run as main agent
+
+then comes the main body.
+
+
+
+this file can also be created my us by our own but we can also ask claude to do it.
+same we can make this in root directory which applies to all projects as default but we can also make it a project specific by putting it in a .claude folder inside the agents folder.
+
+
+it can trigger automatically by claude identify the description and use it through it.
+or it can be done maunally with slash commands.
+also we can trigger it in a workflow command.
+
+
+so now onwards there is changes in the workflow
+same as before but slight changes which is after code implementation we are going to validate the code meaning we are having two modules to run after.
+one is testing and another is self code review.
+
+in testing Test Writer agent will spin which will write test cases based on the recent feature we build.
+later then test runner will spin in that same module which will run those created test cases.
+
+with both these context the main agent will return a final summary.
+once this is done 
+another module self code review will take place:
+    now two agents will spin paranallay
+    security review: checking for securty issues in recently generated code.
+    code quality review: this will review the code quality meaning does it follows the industary standards.
+    and return a summary.
+
+
+to implement it practically we are going to make 2 subagents as we discussed in Testing, and to tie them up we will make a command to trigger both of them.
+
+
+Use this agent to write pytest test cases for Spendly features.
+Invoke after implementing any feature to generate tests based on the feature spec, not the implementation.

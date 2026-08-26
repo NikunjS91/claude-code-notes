@@ -1,0 +1,75 @@
+today we are going to learn about skills.
+skills can be applied to claude cowork as well as claude co-work.
+once we learned the skills you can apply those skills over entire claude eco-system.
+
+
+today we will learn the skills both practical as well as theoritically.
+followed by we are going to contiue building out project.
+
+Why Skills?
+Claude is a general-purpose language model.
+It can reason, write, and code across many domains.
+But there's a gap between general capability and reliable, high-quality output for a specific task type.
+Let's take an example - PPT generation
+
+Claude knows how to generate a PPT on any topic
+It knows what Powerpoint is
+It can reason about slide structure
+It knows which python lib to use
+
+But Claude does not know a lot of things. Such as:
+How to handle the layout
+Which font to use
+How and where to plot charts and tables
+Your company's design guidelines
+
+And this can happen across a lot of tasks
+Frontend development
+Data Analysis
+Writing documents
+Code review
+
+Problem - LLMs won't do well on specialized tasks!
+Solution - Write detailed prompts!
+Remember and Retype Every Time
+Your Context Window Gets Burned
+It's hard to bundle resources with prompts You Can't Share, Version, or Improve a Prompt
+Prompts Don't Compose
+
+based on this we found that when we want to get our work to be done reliably and repetativelly and specialised in this case LLM are not good.
+ and this is where the skills comes to rescue.
+
+
+What are Skills?
+Skills are reusable, file-based resources that provide Claude with domain-specific expertise such as workflows, context, and best practices that transform general-purpose agents into specialists.
+
+Unlike prompts (instructions for one-off tasks), Skills load on-demand and eliminate the need tổ repeatedly provide the same guidance across multiple conversations.
+
+Progressive Disclosure
+Core idea - don't present information until the momen it's needed.
+Level 1: The description (always visible)
+Level 2: The SKILL.md body (loaded on demand)
+Level 3: Referenced resources (loaded if needed)
+
+
+Types of skills:
+Based on scope:
+1. Personal Skills - ~/.claude/skills/
+Personal skills are available across all your projects.
+2. Project Skills — .claude/skills/
+Project skills are available across your current project.
+Shared with your teammates
+
+Ways to create Skills:
+Create manually
+Use Claude - skill-creator skill
+Install from community sources
+
+Steps to create a Skill:
+Identify the need
+Create dir and Write the skill.md file
+Add supporting files(if needed)
+Test the skills.
+Iterate and Refine(try and error)
+
+

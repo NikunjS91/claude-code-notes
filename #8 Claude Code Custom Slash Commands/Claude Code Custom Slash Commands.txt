@@ -1,0 +1,18 @@
+today we will learn to create our custom slash commands.
+and today we will add login and registeration functionality in our expense tracker.
+
+
+1)Saved prompts invoked with a simple /command_name syntax
+2)Used to execute any repeatable workflow in your project
+3)Stored as Markdown files inside the .claude folder
+
+Two types:
+Project-scoped - stored in .claude/commands/, available only within that project
+User-scoped - stored in ~/.claude/commands/, available across all your projects
+
+
+Examples:
+/ review - runs a code review checklist on the current file
+/commit - generates a git commit message based on staged changes
+/test - runs the test suite and analyzes any failures
+/security-scan - scans the codebase for common vulnerabilities like SQL injection or exposed credentials
