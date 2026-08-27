@@ -1,0 +1,23 @@
+today we will explore plugins.
+
+packing and distributing the setup is called plugins.
+also there is marketplase for plugins,
+A marketplace is just a GitHub repo that contains a marketplace.json file listing which plugins are available.
+Official marketplace (claude-plugins-official) - comes pre-added with Claude Code.
+Curated by Anthropic. Includes first-party plugins and vetted partner ones like Vercel, Railway,
+GitHub, Supabase.
+Third-party marketplaces — any GitHub repo with a marketplace. json. Rahul could make one for his team. A company could make an internal one for their org. Anyone can create one.
+
+/plugins on claude code you can find marketplace there and so you can add them,add marketplace then put the url and hit enter
+in discover secion you can find offical marketplaces.
+
+
+we will deploy out app over Railway
+
+Create an account on Railway
+npm install -g @railway/cli
+railway login
+railway whoami
+/plugin marketplace add railwayapp/railway-skills
+/plugin install railway@railway-skills
+Deploy this Flask app to Railway and give me a public URL

@@ -1,0 +1,96 @@
+todays agenda:
+1. Conceptual understanding of Hooks
+2. Practical implementation
+Continue building the project
+
+what is harness?
+A set of straps/equipment used to control and direct the power of something strong
+Core idea - raw power becomes useful only when controlled through a structured interface
+
+our llm is also a horse which has lot of raw power.
+
+also it loses controll with these terms:
+unpredictable
+stateless
+non-deterministic
+disconnected from the real world
+unable to act safely on its own
+
+harness is just a software which is use to convert a raw llm into reliable software engg system.
+
+there condition the harness can handle:
+• reading your filesystem
+• displaying terminal output
+• managing conversation history
+• tracking context window usage
+• sending API requests to Anthropic
+• parsing the model's tool calls
+• asking you for permission before running commands
+• executing those commands when approved.
+• Memory management
+• Slash commands
+• Spawning Subagents
+• Extensibility through MCP, plugins etc
+
+openclaw is a personal agent harness(with this we can execute long running tasks.)
+    connect llm to whats app, telegram as such.
+hermes agent is like openclaw (the advantage of this it keeps the workflow-context stores it, and learn from it on each iteration, self learning loop)
+pi is a coding harness
+
+now what are the problems in this system so we need hooks?
+    so think of it like LLM is the BOSS and Claude code Harness as a employee which is somehow true.
+    also the harness is very obedient, and only work as the boss tells to do.
+    in some cases boss it moody and may tell the harness to delete some part of code or to modify it and the harness may do it as he is very obedient.
+    we might think that this can be fixed by instruction which we may give to in CLAUDE.md file but the fact is it listens to it 98% on time, but when working in complex task it may tend to forget it, and that a risk.
+    we have to handle that 2% risk chances and hooks help us in this case.
+
+
+Agent Loop:
+Cycle 1: Model says "Read app.py"→ harness reads the file → sends contents back to model.
+Cycle 2: Model says "Read database/schema.sql" → harness reads the file → sends contents back.
+Cycle 3: Model says "Write the delete route to app.py" → harness writes the code to disk → confirms success.
+Cycle 4: Model says "Run python -m pytest tests/" → harness runs pytest → sends test output back.
+Cycle 5: Model sees all tests pass → responds with final text: "I've added the expense deletion route with proper parameterized SQL and a confirmation step. All tests pass."
+
+
+Session Lifecycle:Session Lifecycle is the full lifespan of one Claude Code session from the moment you launch it to the moment you close it.
+start with claude then exit with /exit
+
+Hooks:
+Hooks are custom scripts written by the programmer that the harness automatically executes at specific events during a session's lifecycle.
+Use-cases:
+
+1. Auto-formatting & Linting -easy reading
+2. Blocking dangerous shell commands
+3. Protecting sensitive files
+4. Notification
+5. Telemetry
+6. Generating summary
+
+Black Formatter (github) post tool use.
+
+Linting is about catching actual problems - bugs, bad practices, suspicious patterns - without running the code. A linter reads your source and flags things that are technically valid Python but are likely mistakes.
+
+How Hooks work?
+
+1. You ask Claude to "clean up the Spendly project"
+2. Claude enters the agent loop and decides: "Bash: rm spendly. db"
+3. The harness sees a Bash tool call and checks - is there a PreToolUse hook with a matcher that matches "Bash"? Yes
+4. The harness runs your script, piping in JSON that contains the command rm spendly. db
+5. Your script reads the JSON, sees rm targeting spendly. db, prints "Cannot delete the database file" to stderr, and exits with code 2
+6. The harness reads exit code 2 - block. It does not run the command
+7. The harness sends the error message "Cannot delete the database file" back to the model
+8. The model reads the error, understands, and moves on to something else
+9. The agent loop continues. Your database is safe
+
+
+refer image.png
+"hooks"{
+"PreToolUse": [
+{
+"matcher": "Bash",
+'hooks": [
+"type": "command",
+"command": "python3 .claude/hooks/block-dangerous.py"
+
+

@@ -1,0 +1,88 @@
+today we will learn about what is mcp and how to implement it.
+we will explore top 10 mcp available publicly
+and we will continue building the project(expense tracker) we will see how our workflow improves with this mcp.
+
+What is MCP
+MCP (Model Context Protocol) is an open standard created by Anthropic that acts as a universal connector between Claude Code and external tools, services, and data sources.
+
+Plan of Action:
+
+Integrate 3 MCP servers to our current project:
+DBHub:  DBHub is a zero-dependency, token efficient MCP server implementing the Model Context Protocol server interface. This lightweight gateway allows MCP-compatible clients to connect to and explore different databases.
+Figma
+Github
+Discuss about 7 more MCP servers
+
+
+this is a tool to get the mcp-database-server.(Dbhub wasnt working for local development so i used this one from github repo)
+
+claude mcp add --transport stdio sqlite -- npx -y
+  @executeautomation/database-server "/Users/nikunjshetye/Notes/Claude 
+  CampusX/Project/expense-tracker/spendly.db"
+
+  check with /mcp to see the connection
+
+with this we can prompt claude to know about the database.
+
+
+now we will use figma, this is design tool used by designers and product managers to create wireframes uiux of the websight.
+
+claude plugin install figma@claude-plugins-official
+
+design link: https://www.figma.com/design/mh8yLFZob61Ci0isBEBYPG/design?m=auto&t=YSjyLPzJhKEfRH8k-6
+
+prompt:
+
+I want to add an Analytics module to the Spendly expense tracker app.
+Here is the Figma design for the Coming Soon page: https://www.figma.com/design/mh8yLFZob61Ci0isBEBYPG/design?m=auto&t=YSjyLPzJhKEfRH8k-6
+Please do the following:
+1. Read the Figma design and convert it to a Jinja2 HTML template (analytics.html) that matches the design exactly
+2. Add an "Analytics" menu item to the navbar in base.html (or wherever the navbar is defined)
+• The Analytics menu item should only be visible to logged in users in the navbar
+3. Create a Flask route in app.py for /analytics that renders the coming soon page
+• Protect this route so only logged in users can access it
+• If a logged out user tries to visit /analytics directly via URL, redirect them to the login page
+4. Make sure the active state of the navbar highlights "Analytics" when on that page
+
+Keep the styling consistent with the existing Spendly design and use the same CSS patterns already in the project. Use whatever authentication mechanism is already being used in app.py. (session, flask-login, etc.) - do not introduce a new auth library.
+
+GitHub MCP server.
+
+
+
+export PAT=<YOUR_GITHUB_PAT_HERE>
+
+claude mcp add --transport http github https://api.githubcopilot.com/mcp -H "Authorization: Bearer $PAT"
+
+once connected, we can simply prompt the github
+
+
+now we are developing new feature
+
+
+now we will see mcp server
+1)context7 
+Context is an MCP server that pulls live, up-to-date documentation for any library or framework directly into Claude's context while you're coding.
+2)jira
+Jira is a project management tool made by Atlassian, widely used by software development teams to plan, track, and manage work - from bug fixes to full feature development.
+Read JIRA-234 and implement the feature
+Find all open bug tickets in the Spendly project and fix the highest priority one
+3)Notion
+Notion is an all-in-one workspace tool used by teams and individuals to write docs, manage knowledge, plan projects, and collaborate - all in one place.
+    Read the product requirements doc for the Analytics module in
+    Notion and implement the feature in my Flask app
+    Read the API design document in Notion and scaffold all the endpoints in app.py
+4)Slack
+Slack is a business communication platform used by teams to send messages, share files, and collaborate - organized into channels, direct messages, and threads.
+    Push this fix to GitHub, open a PR, and post the PR link in #code-reviews with a summary of what was changed
+    Check #incidents for the latest production error, read the details, find the bug in the codebase and fix it
+5)AWS (Amazon Web Services) is the world's largest cloud platform offering 200+ services - from servers and databases to AI and networking
+    Deploy the latest build of Spendly to the EC2 instance and verify it's running
+    Check CloudWatch logs for the Spendly app from the last 2 hours and find what's causing the 500 errors
+6)Docker
+Docker is a platform that packages your application and all its dependencies into a container - a lightweight, portable, self-contained unit that runs the same way on any machine.
+    Read my Spendly Flask app and generate an optimized Dockerfile for it
+    My Docker image is 2GB, analyze the Dockerfile and reduce the image size
+
+
+claude remove <server name>. // to remove the server
